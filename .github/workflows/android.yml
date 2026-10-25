@@ -23,11 +23,12 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - uses: android-actions/setup-android@v3
-
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.9
+
+      - name: Accept SDK licenses
+        run: yes | sdkmanager --licenses > /dev/null || true
 
       - name: Unit tests
         run: gradle testDebugUnitTest --no-daemon
@@ -39,4 +40,3 @@ jobs:
         with:
           name: tinta-debug-apk
           path: app/build/outputs/apk/debug/*.apk
-          
